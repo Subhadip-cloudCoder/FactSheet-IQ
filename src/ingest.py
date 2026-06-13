@@ -27,7 +27,7 @@ def process_doc():
         print("Please place your financial sheets int the data directory")
         return
     
-    print(f"Found {len(pdf_files)} PDF(s) or CSV(s). Starting data integraion...")
+    print(f"Found {len(pdf_files)} PDF(s). Starting data integraion...")
 
     # EXTRACT TEXT FROM THE PDF(s) IN THE DATA FOLDER
 
