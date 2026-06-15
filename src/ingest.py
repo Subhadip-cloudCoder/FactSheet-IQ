@@ -7,8 +7,11 @@ from langchain_chroma import Chroma
 
 # USING THE REALTIVE PATHS FOR GETTING THE DATA FROM THE ROOT STRUCTURE
 
-DATA_DIR = "../sample_data"
-CHROMA_PATH = "../vectorstore/chroma_db"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(SCRIPT_DIR)
+
+DATA_DIR = os.path.join(BASE_DIR, "sample_data")
+CHROMA_PATH = os.path.join(BASE_DIR, "vectorstore", "chroma_db")
 EMBEDDING_MODEL = "mxbai-embed-large"
 
 # PROCESSING THE INPUT DATA TO FEED THE BOT
@@ -33,9 +36,15 @@ def process_doc():
 
     raw_documents = []
     for pdf_file in pdf_files:
-        print(f"-> Loading: {os.path.basename(pdf_file)}")
+        filename = os.path.basename(pdf_file)
+        print(f"-> Loading and Tagging: {filename}")
         loader = PyPDFLoader(pdf_file)
-        raw_documents.extend(loader.load())
+        docs = loader.load()
+        
+        for doc in docs:
+            doc.metadata["source"] = filename
+        
+        raw_documents.extend(docs)
 
     print(f"Sucessfully extracted {len(raw_documents)} total pages.")
 
