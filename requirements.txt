@@ -4,4 +4,4 @@ langchain-ollama
 langchain-chroma
 pypdf
 streamlit
-glob
+yfinance
